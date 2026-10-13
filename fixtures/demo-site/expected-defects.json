@@ -1,0 +1,33 @@
+{
+  "_comment": "Ground truth for evaluating Ghost User against the demo site. Used only by tests and evals. Never shown to any agent.",
+  "defects": [
+    {
+      "id": "signup-plus-email",
+      "area": "signup",
+      "title": "Signup rejects a valid email address containing '+'",
+      "severity": "medium",
+      "matchAll": [["email", "e-mail"], ["+", "plus", "valid", "reject"]]
+    },
+    {
+      "id": "rename-not-persisted",
+      "area": "rename",
+      "title": "Project rename reports success but is not persisted after reload",
+      "severity": "high",
+      "matchAll": [["rename", "name", "renamed"], ["persist", "reload", "refresh", "revert", "reverted", "original", "old"]]
+    },
+    {
+      "id": "settings-nav-wrong-page",
+      "area": "nav",
+      "title": "The Settings navigation link opens the Billing page",
+      "severity": "medium",
+      "matchAll": [["settings"], ["billing", "wrong page", "/billing"]]
+    },
+    {
+      "id": "contact-misleading-success",
+      "area": "contact",
+      "title": "Contact form shows a success message although the server rejected the submission (HTTP 422)",
+      "severity": "medium",
+      "matchAll": [["contact", "message"], ["success", "sent", "misleading", "422", "rejected", "error"]]
+    }
+  ]
+}

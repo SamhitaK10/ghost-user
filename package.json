@@ -1,0 +1,40 @@
+{
+  "name": "ghost-user",
+  "version": "0.1.0",
+  "description": "Autonomous website QA with a team of bounded-context AI subagents, built on Vercel eve.",
+  "private": true,
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "dev": "eve dev",
+    "build": "eve build",
+    "info": "eve info",
+    "demo": "tsx fixtures/demo-site/server.ts",
+    "ui": "tsx ui/server.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint agent src ui fixtures evals test",
+    "test": "vitest run",
+    "test:unit": "vitest run test/unit",
+    "test:e2e": "vitest run test/e2e",
+    "eval": "GHOST_USER_ALLOWED_ORIGINS=http://127.0.0.1:4181,http://127.0.0.1:4182 eve eval",
+    "eval:mock": "GHOST_USER_MOCK=1 GHOST_USER_ALLOWED_ORIGINS=http://127.0.0.1:4181,http://127.0.0.1:4182 eve eval --tag mock",
+    "demo:artifacts": "tsx scripts/demo-artifacts.ts"
+  },
+  "dependencies": {
+    "ai": "^7.0.138",
+    "eve": "0.78.0",
+    "playwright": "1.56.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "just-bash": "^3.6.0",
+    "oxlint": "^1.88.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}

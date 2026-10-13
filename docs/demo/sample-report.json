@@ -1,0 +1,540 @@
+{
+  "schemaVersion": 1,
+  "runId": "run-8f2ad809335f",
+  "generatedAt": "2026-10-13T16:12:37.048Z",
+  "target": {
+    "url": "http://127.0.0.1:4173/",
+    "objective": "Verify signup, project creation and renaming, main navigation and the contact form work as a user would expect."
+  },
+  "outcome": {
+    "result": "failed",
+    "runOutcome": "objective_satisfied"
+  },
+  "executiveSummary": "Scripted demonstration run (not an LLM run) against the seeded-defect demo site. Four defects were reproduced independently and confirmed with screenshots; the destructive control was refused by policy.",
+  "counts": {
+    "checksPassed": 0,
+    "checksFailed": 4,
+    "checksBlocked": 1,
+    "confirmed": 4,
+    "suspected": 0,
+    "observed": 0,
+    "dismissed": 0
+  },
+  "metrics": {
+    "agentInvocations": 11,
+    "toolCalls": 123,
+    "browserActions": 109,
+    "runtimeMs": 19289,
+    "model": null
+  },
+  "limits": {
+    "budgets": {
+      "maxBrowserActionsPerTask": 30,
+      "maxTaskRetries": 1,
+      "maxDelegationDepth": 1,
+      "maxAgentInvocations": 14,
+      "maxElapsedMs": 600000
+    },
+    "model": {}
+  },
+  "groups": [
+    {
+      "title": "Signup with a valid email address",
+      "findingIds": [
+        "finding-001"
+      ]
+    },
+    {
+      "title": "Renaming a project persists after reload",
+      "findingIds": [
+        "finding-002"
+      ]
+    },
+    {
+      "title": "Settings link opens the Settings page",
+      "findingIds": [
+        "finding-003"
+      ]
+    },
+    {
+      "title": "Contact form reports validation failure honestly",
+      "findingIds": [
+        "finding-004"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding-002",
+      "checkId": "check-002",
+      "title": "Renaming a project persists after reload",
+      "expected": "After saving, the project name stays \"Beta mv6vq0vm2\" when the page is reloaded",
+      "observed": "UI said \"Project name saved\" but after reload the name was Alpha mv6vq0vm1",
+      "state": "confirmed",
+      "evidenceIds": [
+        "action-029",
+        "action-030",
+        "action-031",
+        "action-032",
+        "screenshot-002",
+        "action-089",
+        "action-090",
+        "action-091",
+        "action-092",
+        "screenshot-006"
+      ],
+      "severity": "high",
+      "confidence": 0.9,
+      "reproductionSteps": [
+        "After saving, the project name stays \"Beta mv6vq9be5\" when the page is reloaded",
+        "UI said \"Project name saved\" but after reload the name was Alpha mv6vq9be4"
+      ],
+      "reproductionEvidenceIds": [
+        "action-089",
+        "action-090",
+        "action-091",
+        "action-092",
+        "screenshot-006",
+        "screenshot-006"
+      ],
+      "rationale": "Reproduced independently with fresh test data.",
+      "createdAt": "2026-10-13T16:12:25.054Z",
+      "updatedAt": "2026-10-13T16:12:34.646Z"
+    },
+    {
+      "id": "finding-001",
+      "checkId": "check-001",
+      "title": "Signup with a valid email address",
+      "expected": "Account is created for qa+mv6vpyg90@example.com and the user lands on the projects page",
+      "observed": "Stayed on http://127.0.0.1:4173/signup; alert says: \"Please enter a valid email address.\"",
+      "state": "confirmed",
+      "evidenceIds": [
+        "action-009",
+        "action-010",
+        "action-011",
+        "screenshot-001",
+        "action-069",
+        "action-070",
+        "action-071",
+        "screenshot-005"
+      ],
+      "severity": "medium",
+      "confidence": 0.9,
+      "reproductionSteps": [
+        "Account is created for inv+iwf3p@example.com and the user lands on the projects page",
+        "Stayed on http://127.0.0.1:4173/signup; alert says: \"Please enter a valid email address.\""
+      ],
+      "reproductionEvidenceIds": [
+        "action-069",
+        "action-070",
+        "action-071",
+        "screenshot-005",
+        "screenshot-005"
+      ],
+      "rationale": "Reproduced independently with fresh test data.",
+      "createdAt": "2026-10-13T16:12:20.361Z",
+      "updatedAt": "2026-10-13T16:12:31.375Z"
+    },
+    {
+      "id": "finding-003",
+      "checkId": "check-003",
+      "title": "Settings link opens the Settings page",
+      "expected": "Clicking Settings in the main navigation opens the account settings page",
+      "observed": "Opened http://127.0.0.1:4173/billing titled \"Billing - Acme Projects\" with headings: Billing",
+      "state": "confirmed",
+      "evidenceIds": [
+        "action-035",
+        "action-036",
+        "screenshot-003",
+        "action-095",
+        "action-096",
+        "screenshot-007"
+      ],
+      "severity": "medium",
+      "confidence": 0.9,
+      "reproductionSteps": [
+        "Clicking Settings in the main navigation opens the account settings page",
+        "Opened http://127.0.0.1:4173/billing titled \"Billing - Acme Projects\" with headings: Billing"
+      ],
+      "reproductionEvidenceIds": [
+        "action-095",
+        "action-096",
+        "screenshot-007",
+        "screenshot-007"
+      ],
+      "rationale": "Reproduced independently with fresh test data.",
+      "createdAt": "2026-10-13T16:12:26.504Z",
+      "updatedAt": "2026-10-13T16:12:36.045Z"
+    },
+    {
+      "id": "finding-004",
+      "checkId": "check-004",
+      "title": "Contact form reports validation failure honestly",
+      "expected": "An invalid submission shows an error, never a success message",
+      "observed": "Server rejected the request (POST http://127.0.0.1:4173/api/contact -> 422) but the page says: Message sent successfully!",
+      "state": "confirmed",
+      "evidenceIds": [
+        "action-043",
+        "action-044",
+        "action-045",
+        "screenshot-004",
+        "action-103",
+        "action-104",
+        "action-105",
+        "screenshot-008"
+      ],
+      "severity": "medium",
+      "confidence": 0.9,
+      "reproductionSteps": [
+        "An invalid submission shows an error, never a success message",
+        "Server rejected the request (POST http://127.0.0.1:4173/api/contact -> 422) but the page says: Message sent successfully!"
+      ],
+      "reproductionEvidenceIds": [
+        "action-103",
+        "action-104",
+        "action-105",
+        "screenshot-008",
+        "screenshot-008"
+      ],
+      "rationale": "Reproduced independently with fresh test data.",
+      "createdAt": "2026-10-13T16:12:27.430Z",
+      "updatedAt": "2026-10-13T16:12:36.994Z"
+    }
+  ],
+  "checks": [
+    {
+      "id": "check-001",
+      "taskId": "task-002",
+      "planStepId": "step-1",
+      "title": "Signup with a valid email address",
+      "expected": "Account is created for qa+mv6vpyg90@example.com and the user lands on the projects page",
+      "observed": "Stayed on http://127.0.0.1:4173/signup; alert says: \"Please enter a valid email address.\"",
+      "status": "failed",
+      "evidenceIds": [
+        "action-009",
+        "action-010",
+        "action-011",
+        "screenshot-001",
+        "screenshot-001"
+      ],
+      "findingId": "finding-001",
+      "createdAt": "2026-10-13T16:12:20.361Z"
+    },
+    {
+      "id": "check-002",
+      "taskId": "task-003",
+      "planStepId": "step-1",
+      "title": "Renaming a project persists after reload",
+      "expected": "After saving, the project name stays \"Beta mv6vq0vm2\" when the page is reloaded",
+      "observed": "UI said \"Project name saved\" but after reload the name was Alpha mv6vq0vm1",
+      "status": "failed",
+      "evidenceIds": [
+        "action-029",
+        "action-030",
+        "action-031",
+        "action-032",
+        "screenshot-002",
+        "screenshot-002"
+      ],
+      "findingId": "finding-002",
+      "createdAt": "2026-10-13T16:12:25.054Z"
+    },
+    {
+      "id": "check-003",
+      "taskId": "task-004",
+      "planStepId": "step-1",
+      "title": "Settings link opens the Settings page",
+      "expected": "Clicking Settings in the main navigation opens the account settings page",
+      "observed": "Opened http://127.0.0.1:4173/billing titled \"Billing - Acme Projects\" with headings: Billing",
+      "status": "failed",
+      "evidenceIds": [
+        "action-035",
+        "action-036",
+        "screenshot-003",
+        "screenshot-003"
+      ],
+      "findingId": "finding-003",
+      "createdAt": "2026-10-13T16:12:26.504Z"
+    },
+    {
+      "id": "check-004",
+      "taskId": "task-005",
+      "planStepId": "step-1",
+      "title": "Contact form reports validation failure honestly",
+      "expected": "An invalid submission shows an error, never a success message",
+      "observed": "Server rejected the request (POST http://127.0.0.1:4173/api/contact -> 422) but the page says: Message sent successfully!",
+      "status": "failed",
+      "evidenceIds": [
+        "action-043",
+        "action-044",
+        "action-045",
+        "screenshot-004",
+        "screenshot-004"
+      ],
+      "findingId": "finding-004",
+      "createdAt": "2026-10-13T16:12:27.430Z"
+    },
+    {
+      "id": "check-005",
+      "taskId": "task-006",
+      "planStepId": "step-1",
+      "title": "Destructive control is not exercised",
+      "expected": "Destructive controls are never clicked",
+      "observed": "Refused by policy: BLOCKED_BY_POLICY",
+      "status": "blocked",
+      "evidenceIds": [
+        "action-061",
+        "action-062"
+      ],
+      "createdAt": "2026-10-13T16:12:29.834Z"
+    }
+  ],
+  "evidence": [
+    {
+      "id": "action-009",
+      "kind": "action",
+      "tool": "browser_fill",
+      "summary": "fill textbox \"Password\"",
+      "url": "http://127.0.0.1:4173/signup"
+    },
+    {
+      "id": "action-010",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/signup (0/10 elements, unchanged)",
+      "url": "http://127.0.0.1:4173/signup"
+    },
+    {
+      "id": "action-011",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click button \"Create account\" -> http://127.0.0.1:4173/signup",
+      "url": "http://127.0.0.1:4173/signup"
+    },
+    {
+      "id": "action-029",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/projects/p1 (0/9 elements, unchanged)",
+      "url": "http://127.0.0.1:4173/projects/p1"
+    },
+    {
+      "id": "action-030",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click button \"Save name\" -> http://127.0.0.1:4173/projects/p1",
+      "url": "http://127.0.0.1:4173/projects/p1"
+    },
+    {
+      "id": "action-031",
+      "kind": "action",
+      "tool": "browser_reload",
+      "summary": "reload -> http://127.0.0.1:4173/projects/p1",
+      "url": "http://127.0.0.1:4173/projects/p1"
+    },
+    {
+      "id": "action-032",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/projects/p1 (9/9 elements)",
+      "url": "http://127.0.0.1:4173/projects/p1"
+    },
+    {
+      "id": "action-035",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click link \"Settings\" -> http://127.0.0.1:4173/billing",
+      "url": "http://127.0.0.1:4173/billing"
+    },
+    {
+      "id": "action-036",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/billing (5/5 elements)",
+      "url": "http://127.0.0.1:4173/billing"
+    },
+    {
+      "id": "action-043",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/contact (0/8 elements, unchanged)",
+      "url": "http://127.0.0.1:4173/contact"
+    },
+    {
+      "id": "action-044",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click button \"Send message\" -> http://127.0.0.1:4173/contact",
+      "url": "http://127.0.0.1:4173/contact"
+    },
+    {
+      "id": "action-045",
+      "kind": "tool",
+      "tool": "browser_network",
+      "summary": "network log: 1 of 1 entries",
+      "url": "http://127.0.0.1:4173/contact"
+    },
+    {
+      "id": "action-061",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/projects/p2 (9/9 elements)",
+      "url": "http://127.0.0.1:4173/projects/p2"
+    },
+    {
+      "id": "action-062",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "FAILED BLOCKED_BY_POLICY: Clicking \"Delete project\" looks destructive. Destructive actions are blocked; report this step as blocked.",
+      "url": "http://127.0.0.1:4173/projects/p2"
+    },
+    {
+      "id": "action-069",
+      "kind": "action",
+      "tool": "browser_fill",
+      "summary": "fill textbox \"Password\"",
+      "url": "http://127.0.0.1:4173/signup"
+    },
+    {
+      "id": "action-070",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/signup (0/9 elements, unchanged)",
+      "url": "http://127.0.0.1:4173/signup"
+    },
+    {
+      "id": "action-071",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click button \"Create account\" -> http://127.0.0.1:4173/signup",
+      "url": "http://127.0.0.1:4173/signup"
+    },
+    {
+      "id": "action-089",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/projects/p3 (0/9 elements, unchanged)",
+      "url": "http://127.0.0.1:4173/projects/p3"
+    },
+    {
+      "id": "action-090",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click button \"Save name\" -> http://127.0.0.1:4173/projects/p3",
+      "url": "http://127.0.0.1:4173/projects/p3"
+    },
+    {
+      "id": "action-091",
+      "kind": "action",
+      "tool": "browser_reload",
+      "summary": "reload -> http://127.0.0.1:4173/projects/p3",
+      "url": "http://127.0.0.1:4173/projects/p3"
+    },
+    {
+      "id": "action-092",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/projects/p3 (9/9 elements)",
+      "url": "http://127.0.0.1:4173/projects/p3"
+    },
+    {
+      "id": "action-095",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click link \"Settings\" -> http://127.0.0.1:4173/billing",
+      "url": "http://127.0.0.1:4173/billing"
+    },
+    {
+      "id": "action-096",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/billing (5/5 elements)",
+      "url": "http://127.0.0.1:4173/billing"
+    },
+    {
+      "id": "action-103",
+      "kind": "action",
+      "tool": "browser_snapshot",
+      "summary": "snapshot http://127.0.0.1:4173/contact (0/8 elements, unchanged)",
+      "url": "http://127.0.0.1:4173/contact"
+    },
+    {
+      "id": "action-104",
+      "kind": "action",
+      "tool": "browser_click",
+      "summary": "click button \"Send message\" -> http://127.0.0.1:4173/contact",
+      "url": "http://127.0.0.1:4173/contact"
+    },
+    {
+      "id": "action-105",
+      "kind": "tool",
+      "tool": "browser_network",
+      "summary": "network log: 1 of 1 entries",
+      "url": "http://127.0.0.1:4173/contact"
+    },
+    {
+      "id": "screenshot-001",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/signup (signup failed)",
+      "url": "http://127.0.0.1:4173/signup",
+      "file": "screenshots/screenshot-001.jpg"
+    },
+    {
+      "id": "screenshot-002",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/projects/p1 (name after reload)",
+      "url": "http://127.0.0.1:4173/projects/p1",
+      "file": "screenshots/screenshot-002.jpg"
+    },
+    {
+      "id": "screenshot-003",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/billing (settings link result)",
+      "url": "http://127.0.0.1:4173/billing",
+      "file": "screenshots/screenshot-003.jpg"
+    },
+    {
+      "id": "screenshot-004",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/contact (contact result)",
+      "url": "http://127.0.0.1:4173/contact",
+      "file": "screenshots/screenshot-004.jpg"
+    },
+    {
+      "id": "screenshot-005",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/signup (signup failed)",
+      "url": "http://127.0.0.1:4173/signup",
+      "file": "screenshots/screenshot-005.jpg"
+    },
+    {
+      "id": "screenshot-006",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/projects/p3 (name after reload)",
+      "url": "http://127.0.0.1:4173/projects/p3",
+      "file": "screenshots/screenshot-006.jpg"
+    },
+    {
+      "id": "screenshot-007",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/billing (settings link result)",
+      "url": "http://127.0.0.1:4173/billing",
+      "file": "screenshots/screenshot-007.jpg"
+    },
+    {
+      "id": "screenshot-008",
+      "kind": "screenshot",
+      "tool": "browser_screenshot",
+      "summary": "screenshot of http://127.0.0.1:4173/contact (contact result)",
+      "url": "http://127.0.0.1:4173/contact",
+      "file": "screenshots/screenshot-008.jpg"
+    }
+  ]
+}
