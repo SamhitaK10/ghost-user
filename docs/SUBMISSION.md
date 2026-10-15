@@ -9,7 +9,7 @@ that enforces budgets, retries, routing and de-duplication in code. Browser work
 allowlist, destructive-action refusal and secret-by-name credentials. Findings move observed → suspected →
 confirmed, and the store refuses confirmation unless the Investigator reproduced the failure itself with browser
 evidence; reports are generated from stored facts so they cannot cite evidence that does not exist.
-A separate demo site with four seeded defects supports repeatable tests. Verified: 68 unit/e2e tests (real Chromium,
+A separate demo site with four seeded defects supports repeatable tests. Verified: 71 unit/e2e tests (real Chromium,
 scripted agents), a mock-model eve eval through the real runtime, `eve build`. Not verified: any live-model run,
 so no detection-rate or efficiency claims are made. Integration findings worth sharing with eve maintainers are in
 the questions below. AI assistance: the code, tests and docs were produced with Claude Code and **must be reviewed by

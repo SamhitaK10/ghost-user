@@ -65,7 +65,7 @@ npx playwright install chromium     # or set GHOST_USER_CHROMIUM_PATH
 cp .env.example .env                # then export the variables (or use your shell/direnv)
 export GHOST_USER_ALLOWED_ORIGINS=http://127.0.0.1:4173
 export GHOST_USER_SECRETS='{"demo_password":"demo-pass-123"}'   # optional: demo login
-# model credential (pick one; never commit it):
+# model credential (pick one provider; never commit keys). Gemini: see "Running with Gemini" below.
 export GHOST_USER_PROVIDER=anthropic          # direct API; or leave unset for the Vercel AI Gateway
 export ANTHROPIC_API_KEY=...                  # enter it in your shell or a git-ignored .env, not in code
 
@@ -89,6 +89,23 @@ persist; the Settings link opens Billing; the contact form shows success after a
 `tsx fixtures/demo-site/server.ts --bugs=none` runs it clean. Ground truth lives in
 `fixtures/demo-site/expected-defects.json` (tests/evals only).
 
+## Running with Gemini
+
+Supported providers: Gemini, Anthropic, OpenAI (direct APIs) or any model on the Vercel AI Gateway. Every agent
+(orchestrator and the four subagents) uses the same provider through `modelFor()` in `src/mock/model.ts`.
+
+```bash
+export GHOST_USER_PROVIDER=gemini
+export GEMINI_API_KEY=...            # from Google AI Studio; or GOOGLE_GENERATIVE_AI_API_KEY. Keep it in your shell or a git-ignored .env
+export GHOST_USER_MODEL=gemini-3.5-flash   # optional, this is the default
+npm run demo & npm run dev & npm run ui     # then open http://127.0.0.1:4200
+```
+
+Alternative via the AI Gateway: leave `GHOST_USER_PROVIDER` unset, set `GHOST_USER_MODEL=google/gemini-3.5-flash` and `AI_GATEWAY_API_KEY`.
+The Gemini provider is unit-tested for selection and error handling (`test/model.test.ts`, no network). **A live Gemini run
+has not been performed**: the build sandbox had no key and could not reach the Gemini API host, and the default model id
+is taken from eve's docs, not verified against a key. Run the real-model eval above and record the output in `docs/TESTING.md`.
+
 ## Configuration
 
 The UI binds to 127.0.0.1 only and rejects foreign `Host` headers and cross-site/origin-less POSTs.
@@ -102,9 +119,9 @@ When eve's token/cost limit prompt fires during a UI run, the run is stopped (un
 
 ```bash
 npm run typecheck && npm run lint
-npm test                      # 68 tests: unit + real-browser e2e against the demo site (scripted agents)
+npm test                      # 71 tests: unit + real-browser e2e against the demo site (scripted agents)
 npm run eval:mock             # eve runtime wiring with deterministic mock models
-GHOST_USER_REAL_EVAL=1 GHOST_USER_PROVIDER=anthropic npm run eval -- real-model   # needs ANTHROPIC_API_KEY; NOT yet run
+GHOST_USER_REAL_EVAL=1 GHOST_USER_PROVIDER=gemini npm run eval -- real-model      # needs GEMINI_API_KEY; NOT yet run (also: anthropic / openai)
 ```
 
 Exact commands and recorded outcomes: [docs/TESTING.md](docs/TESTING.md).

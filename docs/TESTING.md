@@ -7,17 +7,17 @@ Everything below was actually run; outputs are summarised from `/tmp` logs of th
 |---|---|
 | `npm run typecheck` | exit 0 |
 | `npm run lint` (oxlint) | 0 warnings, 0 errors |
-| `npm test` | **6 files, 68 tests passed** |
+| `npm test` | **7 files, 71 tests passed (adds Gemini provider selection tests, no network)** |
 | `npm run eval:mock` | **1 eval passed, 13/13 gates** |
 | `npx eve info` | compile ready, 0 errors/warnings, 5 root tools, 4 subagents |
 | `npx eve build` | built `.output` successfully |
-| `GHOST_USER_REAL_EVAL=1 npm run eval -- real-model` | **NOT RUN, BLOCKED.** Re-checked 2026-10-13: no `AI_GATEWAY_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` or `VERCEL_OIDC_TOKEN` in the environment; the AI Gateway host is blocked by the sandbox egress proxy (api.anthropic.com is reachable, but needs a key). Without the flag/credential both real-model evals report **skipped**, which is not a pass. |
+| `GHOST_USER_REAL_EVAL=1 npm run eval -- real-model` | **NOT RUN, BLOCKED.** Re-checked 2026-10-13: no `AI_GATEWAY_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY` or `VERCEL_OIDC_TOKEN` in the environment; the AI Gateway host and `generativelanguage.googleapis.com` (Gemini) are blocked by the sandbox egress proxy (api.anthropic.com is reachable, but needs a key). Without the flag/credential both real-model evals report **skipped**, which is not a pass. |
 
 ## Live-model results
 **None yet.** No live-model detection rates, false-positive rates, browser-action counts, runtimes, token usage or cost have been measured, so none are reported. Everything in this file above is scripted/mock.
-Next command (with your key in the shell): `GHOST_USER_REAL_EVAL=1 GHOST_USER_PROVIDER=anthropic ANTHROPIC_API_KEY=... npm run eval -- real-model` (repeat 3 times and record each run; reports and `usage.json` are under the eval runs dir).
+Next command (with your key in the shell): `GHOST_USER_REAL_EVAL=1 GHOST_USER_PROVIDER=gemini GEMINI_API_KEY=... npm run eval -- real-model` (repeat 3 times and record each run; reports and `usage.json` are under the eval runs dir).
 
-## What the 68 tests cover
+## What the 71 tests cover
 | File | Tests | Covers |
 |---|---|---|
 | `test/safety.test.ts` | 23 | origin allowlist, metadata/credential URLs, request filtering, DELETE, destructive/transactional/payment/file controls |
