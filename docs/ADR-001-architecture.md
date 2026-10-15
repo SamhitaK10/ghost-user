@@ -1,6 +1,6 @@
 # ADR-001: Ghost User architecture on eve
 
-Status: accepted (MVP). Based on eve 0.78.0 docs and source under `node_modules/eve`.
+Status: accepted. Based on eve 0.78.0 docs and source under `node_modules/eve`.
 
 ## eve capabilities relied on (all verified in docs/types and by running them)
 | Need | eve feature | Evidence |
@@ -26,10 +26,10 @@ integration attempt recorded all tasks as failed). Tool results must not contain
 5. **Findings lifecycle:** observed → suspected → confirmed | dismissed (+ inconclusive flag). Reports derive from the store.
 6. **Browser tools** use short-lived element refs (`e7`) with a fingerprint check against stale refs, snapshot caching (`unchanged`/`cached` instead of re-sending), outputs truncated, overflow text saved as artifacts, screenshots saved as evidence and never returned to the model.
 7. **Safety:** see README. Credentials are referenced by name; the value is resolved in `browser.fill` and redacted from logs/evidence.
-8. **Model selection** via `GHOST_USER_MODEL`; `GHOST_USER_MOCK=1` swaps in scripted models for evals only.
+8. **Model selection** via `GHOST_USER_PROVIDER` and `GHOST_USER_MODEL` (Gemini, Anthropic, OpenAI or AI Gateway); `GHOST_USER_MOCK=1` swaps in scripted models for evals only.
 9. **UI** is a thin local server reading the same store and consuming eve's stream via `eve/client`; binds 127.0.0.1.
 
 ## Consequences / risks
 - Store and browser registry are in-process: eve dev/start single instance only. Multi-instance needs a shared store and browser service.
 - `runId` is passed by the model to tools (validated against the active task); a wrong id is refused, not misrouted.
-- Prompt quality against real models is unverified (see TESTING.md).
+- Prompt quality with live models is not yet measured (see TESTING.md).

@@ -1,7 +1,7 @@
 # Testing evidence
 
-Recorded 2026-10-13 in the development sandbox (Linux, Node 24.21, Playwright 1.56 + preinstalled Chromium 141, eve 0.78.0).
-Everything below was actually run; outputs are summarised from `/tmp` logs of those runs.
+Recorded 2026-10-13 and re-run 2026-10-15 (Linux, Node 24.21, Playwright 1.56 with Chromium 141, eve 0.78.0).
+Everything below was actually run; outputs are summarised from the logs of those runs.
 
 | Command | Result |
 |---|---|
@@ -11,11 +11,17 @@ Everything below was actually run; outputs are summarised from `/tmp` logs of th
 | `npm run eval:mock` | **1 eval passed, 13/13 gates** |
 | `npx eve info` | compile ready, 0 errors/warnings, 5 root tools, 4 subagents |
 | `npx eve build` | built `.output` successfully |
-| `GHOST_USER_REAL_EVAL=1 npm run eval -- real-model` | **NOT RUN, BLOCKED.** Re-checked 2026-10-13: no `AI_GATEWAY_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `GEMINI_API_KEY` or `VERCEL_OIDC_TOKEN` in the environment; the AI Gateway host and `generativelanguage.googleapis.com` (Gemini) are blocked by the sandbox egress proxy (api.anthropic.com is reachable, but needs a key). Without the flag/credential both real-model evals report **skipped**, which is not a pass. |
+| `GHOST_USER_REAL_EVAL=1 npm run eval -- real-model` | Requires your own model key. Without the flag both real-model evals report **skipped**, which is not a pass. No live run is recorded here yet. |
 
 ## Live-model results
-**None yet.** No live-model detection rates, false-positive rates, browser-action counts, runtimes, token usage or cost have been measured, so none are reported. Everything in this file above is scripted/mock.
-Next command (with your key in the shell): `GHOST_USER_REAL_EVAL=1 GHOST_USER_PROVIDER=gemini GEMINI_API_KEY=... npm run eval -- real-model` (repeat 3 times and record each run; reports and `usage.json` are under the eval runs dir).
+No live-model detection rates, false-positive rates, browser-action counts, runtimes, token usage or cost are recorded in
+this repository, so none are reported; everything above is scripted or mock-model. To produce them (repeat at least three
+times and record each run; reports and `usage.json` are under the eval runs dir):
+
+```bash
+GHOST_USER_REAL_EVAL=1 GHOST_USER_PROVIDER=gemini GEMINI_API_KEY=... npm run eval -- real-model
+```
+(`GHOST_USER_PROVIDER=anthropic` or `openai` with the matching key also work.)
 
 ## What the 71 tests cover
 | File | Tests | Covers |
